@@ -269,7 +269,7 @@ class CategorieController extends Controller
    public function updateCategorie(Request $request)
    {
       $user = auth()->user();
-        if(!$user->hasPermissionTo('categorie-update')){
+        if(!$user->hasPermissionTo('categorie-edit')){
             return response()->json([
                 'status' => 'error',
                 'message' => 'You dont have permission to update product'

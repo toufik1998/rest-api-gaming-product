@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['sendEmail', 'changePassword', 'failedResponse', 'successResponse','getAllUsers']]);
+        $this->middleware('auth:api', ['except' => ['sendEmail', 'changePassword', 'failedResponse', 'successResponse']]);
     }
     /**
      * @OA\Post(
@@ -162,13 +162,13 @@ class UserController extends Controller
      *         description="validation error",
      *         @OA\JsonContent(
      *             @OA\Property(
-     *               property="status",  
+     *               property="status",
      *               type="string",
      *               description="the status response",
      *               example="error"
      *             ),
      *             @OA\Property(
-     *               property="message",  
+     *               property="message",
      *               type="string",
      *               description="An object containing validation error messages",
      *               example="validation error",
@@ -178,7 +178,7 @@ class UserController extends Controller
      *        ),
      *     ),
      * )
-     */
+    */
     public function changePassword(Request $request)
     {
         $user = $request->user();
@@ -409,9 +409,9 @@ class UserController extends Controller
      *                ),
      *            ),
      *        ),
-     *   
+     *
      *    )
-     * 
+     *
      * )
      */
     public function getAllUsers()
@@ -515,6 +515,13 @@ class UserController extends Controller
      */
     public function editUser(Request $request)
     {
+        $userAuth=auth()->user();
+        if(!$userAuth->hasPermissionTo('user-edit')){
+              return response()->json([
+                  'status' => 'error',
+                  'message' => 'you don\'t have permission to edit user'
+              ]);
+        }
         $user = User::where('id', $request->id)->first();
         if ($user) {
             if ($request->has('name')) {

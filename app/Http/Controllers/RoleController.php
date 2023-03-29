@@ -1,15 +1,15 @@
 <?php
-    
+
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-    
+
 class RoleController extends Controller
 {
-    
+
     /**
      * @OA\Get(
      *     path="/api/roles",
@@ -51,7 +51,7 @@ class RoleController extends Controller
      *         )
      *     )
      * )
-     */
+    */
     public function getAllRoles()
     {
         $user=auth()->user();
@@ -144,10 +144,10 @@ class RoleController extends Controller
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
         ]);
-    
+
         $role = Role::create(['name' => $request->name]);
         $role->syncPermissions($request->permission);
-    
+
         return response()->json([
             'status' => 'success',
             'message' => 'role created successfuly'
@@ -235,13 +235,13 @@ class RoleController extends Controller
         $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
             ->where("role_has_permissions.role_id",$request->id)
             ->get();
-    
+
         return response()->json([
             'status' => 'success',
             'roles' => $role,
             'rolePermissions' => $rolePermissions
         ]);
-         
+
     }
     /**
      *
@@ -322,13 +322,13 @@ class RoleController extends Controller
             'name' => 'required',
             'permission' => 'required',
         ]);
-    
+
         $role = Role::find($request->id);
         $role->name = $request->name;
         $role->save();
-    
+
         $role->syncPermissions($request->permission);
-    
+
         return
         response()->json([
            'status' => 'success',
@@ -408,6 +408,6 @@ class RoleController extends Controller
         return response()->json([
             'status' => 'succcess',
             'message' => 'Role deleted successfully'
-        ]); 
+        ]);
     }
 }

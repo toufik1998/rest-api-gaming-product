@@ -63,11 +63,11 @@ class AuthController extends Controller
      *                     type="string",
      *                     description="the token of the new user"
      *                  ),
-     *                  
+     *
      *              ),
      *     ),
      *)
-     */
+    */
 
     public function createUser(Request $request)
     {
@@ -174,7 +174,7 @@ class AuthController extends Controller
      *         ),
      *     ),
      * )
-     */
+    */
     public function login(Request $request)
     {
         $request->validate([
@@ -224,13 +224,13 @@ class AuthController extends Controller
      *         ),
      *    ),
      * )
-     */
+    */
     public function logout()
     {
         Auth::logout();
         return response()->json([
             'status' => 'success',
-            'message' => 'log out Successfuly'  
+            'message' => 'log out Successfuly'
         ]);
     }
 }
