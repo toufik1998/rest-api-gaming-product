@@ -17,14 +17,14 @@ class CreateUserSeeder extends Seeder
    public function run()
 {
     $admin = User::create([
-        'name' => 'khaled', 
+        'name' => 'khaled',
         'email' => 'admin@adminable.com',
         'password' => bcrypt('eRROR404@'),
     ]);
     $admin->assignRole('admin');
 
     $commercial = User::create([
-        'name' => 'ahmed', 
+        'name' => 'ahmed',
         'email' => 'ahmed@gmail.com',
         'password' => bcrypt('Password123!'),
     ]);
@@ -32,7 +32,7 @@ class CreateUserSeeder extends Seeder
     $commercial->assignRole('commercial');
 
     $user = User::create([
-        'name' => 'said', 
+        'name' => 'said',
         'email' => 'said@gmail.com',
         'password' => bcrypt('12345678'),
     ]);
